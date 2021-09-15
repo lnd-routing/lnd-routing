@@ -3,6 +3,7 @@
 import io
 import json
 import os
+import sys
 
 CHAN_RATE = 100
 CHAN_MIN_VALUE = 50000
@@ -11,7 +12,7 @@ CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
 OUR_ADDR = 'hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735'
 
-lncli_exists = os.popen('which lncll').read().strip() != ''
+lncli_exists = os.popen('which lncli').read().strip() != ''
 
 if lncli_exists:
 	local_pubkey = json.loads(os.popen('lncli getinfo').read().strip())['identity_pubkey']
@@ -34,6 +35,12 @@ while True:
 	break
 
 print('')
+
+if lncli_exists and node_pubkey == local_pubkey:
+	existing_channels = os.popen('lncli listchannels').read()
+	if OUR_NODE in existing_channels:
+		print('You already have a channel open, please close it first.')
+		sys.exit()
 
 while True:
 	try:
