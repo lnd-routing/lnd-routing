@@ -20,7 +20,7 @@ To request a channel opening, send us a keysend of `(desired_channel_value * 0.0
 
 Automatic refunds for failed channel openings are issued via keysend to the specified node. 
 
-*Please check your data carefully, refunds are only automatically issued for failed channel openings, not invalid inputs.*
+*Please check your data carefully, refunds are only automatically issued for failed channel openings, not invalid inputs. We highly suggest using `request_channel.py`.*
 
 Our node will attempt to look up and connect to yours, but for best results, connect to us as a peer prior to requesting a channel.
 
@@ -29,8 +29,6 @@ Our node will attempt to look up and connect to yours, but for best results, con
 `lightning-cli connect 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735`
 
 `eclair-cli connect --uri=02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735`
-
-Channel open requests are processed every 10 minutes.
 
 We currently only have instructions for paying for channel requests from LND, but the destination node can be running any implementation.
 
