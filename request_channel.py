@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import io
+import json
 import os
 
 CHAN_RATE = 100
@@ -9,8 +11,18 @@ CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
 OUR_ADDR = 'hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735'
 
+lncli_exists = os.popen('which lncll').read().strip() != ''
+
+if lncli_exists:
+	local_pubkey = json.loads(os.popen('lncli getinfo').read().strip())['identity_pubkey']
+else:
+	local_pubkey = ''
+
 while True:
-	node_pubkey = input('Enter your node\'s public key: ')
+	node_pubkey = input('Enter your node\'s public key (' + local_pubkey + '): ')
+	if node_pubkey == '' and len(local_pubkey) == 66:
+		node_pubkey = local_pubkey
+		break
 	if len(node_pubkey) != 66:
 		print('Invalid pubkey.')
 		continue
@@ -71,15 +83,16 @@ print(lncli2 + '\\')
 print(lncli3)
 print('')
 
-while True:
-	do_it = input('Would you like us to do this for you? (y/N): ').upper()
-	if do_it == '' or do_it == 'N':
-		break
-	if do_it == 'Y':
-		break
-	print('Please enter Y or N.')
-print('')
+if lncli_exists:
+	while True:
+		do_it = input('Would you like us to do this for you? (y/N): ').upper()
+		if do_it == '' or do_it == 'N':
+			break
+		if do_it == 'Y':
+			break
+		print('Please enter Y or N.')
+	print('')
 
-if do_it == 'Y':
-	os.system('lncli connect ' + OUR_NODE + '@' + OUR_ADDR)
-	os.system(lncli1 + lncli2 + lncli3)
+	if do_it == 'Y':
+		os.system('lncli connect ' + OUR_NODE + '@' + OUR_ADDR)
+		os.system(lncli1 + lncli2 + lncli3)
