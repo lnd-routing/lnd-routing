@@ -12,9 +12,9 @@ Use `request_channel.py` to request an incoming channel.
 
 We have developed a keysend based protocol for paid channel requests. It is based on the keysend messaging protocol.
 
-To request a channel opening, send us a keysend of `(desired_channel_value * 0.01) + 500` sats with custom records `1667785070=01` (for a public channel) or `1667785070=02` (for a private channel) and `34349339=<node_pubkey>`. You can optionally include a message in record `34349334` as a hex encoded UTF-8 string. Our node will attempt to connect to yours and open a channel within a few seconds.
+To request a channel opening, send us a keysend of `(desired_channel_value * 0.0025) + 500` sats with custom records `1667785070=01` (for a public channel) or `1667785070=02` (for a private channel) and `34349339=<node_pubkey>`. You can optionally include a message in record `34349334` as a hex encoded UTF-8 string. Our node will attempt to connect to yours and open a channel within a few seconds.
 
-- Minimum channel size is 50,000 sats. 
+- Minimum channel size is 100,000 sats. 
 - Maxmimum channel size is 1 btc.
 - Only one channel per node. If you need a larger one, please close the existing channel first.
 
@@ -36,21 +36,21 @@ We currently only have instructions for paying for channel requests from LND, bu
 ### Examples:
 To request a 0.1btc public channel from us to node 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021:
 ```
-lncli sendpayment --keysend  --amt 100500 \
+lncli sendpayment --keysend  --amt 25500 \
 --dest 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9 \
 --data 1667785070=01,34349339=0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021
 ```
 
 To request a 0.1btc private channel from us to node 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021:
 ```
-lncli sendpayment --keysend  --amt 100500 \
+lncli sendpayment --keysend  --amt 25500 \
 --dest 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9 \
 --data 1667785070=02,34349339=0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021
 ```
 
 To request a 0.2btc public channel from us to node 22232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142 with "Hello LND.Routing" as a message to us:
 ```
-lncli sendpayment --keysend --amt 200500 \
+lncli sendpayment --keysend --amt 50500 \
 --dest 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9 \
 --data 1667785070=01,34349339=22232425262728292a2b2c2d2e2f303132333435363738393a3b3c3d3e3f404142,34349334=48656c6c6f204c4e442e526f7574696e67`
 ```
