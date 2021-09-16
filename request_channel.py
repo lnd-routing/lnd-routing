@@ -20,7 +20,7 @@ else:
 	local_pubkey = ''
 
 while True:
-	node_pubkey = input('Enter your node\'s public key (' + local_pubkey + '): ')
+	node_pubkey = input('Enter your node\'s public key (' + local_pubkey + '): ').strip()
 	if node_pubkey == '' and len(local_pubkey) == 66:
 		node_pubkey = local_pubkey
 		break
@@ -44,7 +44,7 @@ if lncli_exists and node_pubkey == local_pubkey:
 
 while True:
 	try:
-		chan_val = int(input('Enter the desired channel size in satoshis: '))
+		chan_val = int(input('Enter the desired channel size in satoshis: ').strip())
 	except ValueError:
 		print('Please enter a number.')
 		continue
@@ -58,7 +58,16 @@ while True:
 print('')
 
 while True:
-	send_msg = input('Would you like to send us a message? (y/N): ').upper()
+	pub_chan = input('Should this channel be public? (Y/n): ').strip().upper()
+	if pub_chan == '' or pub_chan == 'Y':
+		break
+	if pub_chan == 'N':
+		break
+	print('Please enter Y or N.')
+print('')
+
+while True:
+	send_msg = input('Would you like to send us a message? (y/N): ').strip().upper()
 	if send_msg == '' or send_msg == 'N':
 		break
 	if send_msg == 'Y':
@@ -67,16 +76,20 @@ while True:
 print('')
 
 if send_msg == 'Y':
-	message = input('Enter your message: ').encode('utf-8').hex()
+	message = input('Enter your message: ').strip().encode('utf-8').hex()
 	print('')
 
 fee_prop = int(chan_val / CHAN_RATE)
 fee = fee_prop + CHAN_OPEN_FEE
 
+if pub_chan == 'Y':
+	request_code = '01'
+else:
+	request_code = '02'
 
 lncli1 = 'lncli sendpayment --keysend --amt ' + str(fee) + ' '
 lncli2 = '    --dest ' + OUR_NODE + ' '
-lncli3 = '    --data 1667785070=01,34349339=' + node_pubkey
+lncli3 = '    --data 1667785070=' + request_code + ',34349339=' + node_pubkey
 if send_msg == 'Y':
 	lncli3 = lncli3 + ',34349334=' + message
 
