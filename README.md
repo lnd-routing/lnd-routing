@@ -33,6 +33,16 @@ requesting a channel.
 
 We currently only have instructions for paying for channel requests from LND, but the destination node can be running any implementation.
 
+### Template:
+
+Replace the parts containing brackets. We have received several channel requests to the non-existant example nodes.
+
+```
+lncli sendpayment --keysend  --amt <(desired_channel_value * 0.0025) + 500> \
+--dest 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9 \
+--data 1667785070=01,34349339=<your_node_pubkey>
+```
+
 ### Examples:
 To request a 0.1btc public channel from us to node 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021:
 ```
