@@ -4,6 +4,7 @@ import io
 import json
 import os
 import sys
+import time
 
 CHAN_RATE = 400
 CHAN_MIN_VALUE = 100000
@@ -12,12 +13,73 @@ CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
 OUR_ADDR = 'hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735'
 
+
+print('Hello! Welcome to LND ⚡ Routing!')
+print('This script will help you request an incoming channel from us.')
+print('')
+
+local_pubkey = ''
+
 lncli_exists = os.popen('which lncli').read().strip() != ''
 
 if lncli_exists:
+
 	local_pubkey = json.loads(os.popen('lncli getinfo').read().strip())['identity_pubkey']
-else:
-	local_pubkey = ''
+
+	print('We found lncli. Would you like to check for updated fees and limits? This will send 3 sats,')
+	print('and 1 will be returned in the response. This is to prevent fee siphoning from our node.')
+	print('')
+	while True:
+		update = input('Y: yes, N: no, C: check for response again without sending request (y/N/c): ').strip().upper()
+		if update == 'N' or update == '':
+			break
+		if update == 'Y' or update == 'C':
+			break
+		print('Please enter Y, N, or C.')
+	print('')
+
+
+	if update == 'Y':
+		print('Sending an update request. Please wait...')
+		os.system('lncli sendpayment --keysend --dest ' + OUR_NODE + ' --amt 3 --data 1667785070=05,34349339=' + local_pubkey)
+		time.sleep(5)
+
+	if update == 'Y' or update == 'C':
+		timeout = time.time() + 60
+		params = ''
+
+		while time.time() < timeout:
+			invoices = json.loads(os.popen('lncli listinvoices').read().strip())['invoices']
+
+
+			for invoice in invoices:
+				if invoice['state'] == 'SETTLED' and int(invoice['settle_date']) > (time.time() - 600):
+					for htlc in invoice['htlcs']:
+						if '1667785071' in htlc['custom_records'] and '34349339' in htlc['custom_records']:
+							if htlc['custom_records']['34349339'] == OUR_NODE and len(htlc['custom_records']['1667785071']) == 64:
+								params = htlc['custom_records']['1667785071']
+			if params != '':
+				break
+
+			time.sleep(5)
+
+		if params != '':
+			CHAN_RATE      = int(params[00:16], 16)
+			CHAN_MIN_VALUE = int(params[16:32], 16)
+			CHAN_MAX_VALUE = int(params[32:48], 16)
+			CHAN_OPEN_FEE  = int(params[48:64], 16)
+
+			print('')
+			print('Got new parameters:')
+			print('       Channel price: (chan_size * ' + str(1/CHAN_RATE) + ') + ' + str(CHAN_OPEN_FEE) + ' sats')
+			print('Minimum channel size: ' + str(CHAN_MIN_VALUE) + ' sats')
+			print('Maximum channel size: ' + str(CHAN_MAX_VALUE) + ' sats')
+			print('')
+		else:
+			print('')
+			print('Did not get parameter response before timeout. Continuing without update, cancel and restart if you would like to wait longer.')
+			print('')
+
 
 while True:
 	node_pubkey = input('Enter your node\'s public key (' + local_pubkey + '): ').strip()
@@ -59,7 +121,7 @@ print('')
 
 while True:
 	pub_chan = input('Should this channel be public? (Y/n): ').strip().upper()
-	if pub_chan == '' or pub_chan == 'Y':
+	if pub_chan == 'Y' or pub_chan == '':
 		break
 	if pub_chan == 'N':
 		break
@@ -68,7 +130,7 @@ print('')
 
 while True:
 	send_msg = input('Would you like to send us a message? (y/N): ').strip().upper()
-	if send_msg == '' or send_msg == 'N':
+	if send_msg == 'N' or send_msg == '':
 		break
 	if send_msg == 'Y':
 		break
@@ -106,7 +168,7 @@ print('')
 if lncli_exists:
 	while True:
 		do_it = input('Would you like us to do this for you? (y/N): ').upper()
-		if do_it == '' or do_it == 'N':
+		if do_it == 'N' or do_it == '':
 			break
 		if do_it == 'Y':
 			break
@@ -116,3 +178,4 @@ if lncli_exists:
 	if do_it == 'Y':
 		os.system('lncli connect ' + OUR_NODE + '@' + OUR_ADDR)
 		os.system(lncli1 + lncli2 + lncli3)
+
