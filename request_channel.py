@@ -38,7 +38,6 @@ if lncli_exists:
 		print('Please enter Y, N, or C.')
 	print('')
 
-
 	if update == 'Y':
 		print('Sending an update request. Please wait...')
 		os.system('lncli sendpayment --keysend --dest ' + OUR_NODE + ' --amt 3 --data 1667785070=05,34349339=' + local_pubkey)
@@ -50,7 +49,6 @@ if lncli_exists:
 
 		while time.time() < timeout:
 			invoices = json.loads(os.popen('lncli listinvoices').read().strip())['invoices']
-
 
 			for invoice in invoices:
 				if invoice['state'] == 'SETTLED' and int(invoice['settle_date']) > (time.time() - 600):
@@ -77,7 +75,8 @@ if lncli_exists:
 			print('')
 		else:
 			print('')
-			print('Did not get parameter response before timeout. Continuing without update, cancel and restart if you would like to wait longer.')
+			print('Did not get parameter response before timeout. Your node must be routable and appear in the graph in order to receive the response. (At least 1 public channel over a day old.) Channel opening will still function, but you must connect to us as a peer first.')
+			print('Continuing without update, cancel and restart if you would like to wait longer.')
 			print('')
 
 
