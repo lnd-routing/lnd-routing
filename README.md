@@ -15,8 +15,7 @@ We have developed a keysend based protocol for paid channel requests. It is base
 To request a channel opening, send us a keysend of `(desired_channel_value * 0.0025) + 500` sats with custom records `1667785070=01` (for a public channel) or `1667785070=02` (for a private channel) and `34349339=<node_pubkey>`. You can optionally include a message in record `34349334` as a hex encoded UTF-8 string. Our node will attempt to connect to yours and open a channel within a few seconds.
 
 - Minimum channel size is 100,000 sats. 
-- Maxmimum channel size is 1 btc.
-- Only one channel per node. If you need a larger one, please close the existing channel first.
+- Maxmimum channel size is 1.5 btc.
 
 Automatic refunds for failed channel openings are issued via keysend to the specified node. 
 

@@ -8,7 +8,7 @@ import time
 
 CHAN_RATE = 400
 CHAN_MIN_VALUE = 100000
-CHAN_MAX_VALUE = 100000000
+CHAN_MAX_VALUE = 150000000
 CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
 OUR_ADDR = 'hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735'
@@ -98,11 +98,13 @@ while True:
 
 print('')
 
+'''
 if lncli_exists and node_pubkey == local_pubkey:
 	existing_channels = os.popen('lncli listchannels').read()
 	if OUR_NODE in existing_channels:
 		print('You already have a channel open, please close it first.')
 		sys.exit()
+'''
 
 while True:
 	try:
