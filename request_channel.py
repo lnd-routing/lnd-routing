@@ -28,6 +28,7 @@ if lncli_exists:
 
 	print('We found lncli. Would you like to check for updated fees and limits? This will send 3 sats,')
 	print('and 1 will be returned in the response. This is to prevent fee siphoning from our node.')
+	print('Receiving an update response also verifies your ability to receive refunds in case of failed channel opening.')
 	print('')
 	while True:
 		update = input('Y: yes, N: no, C: check for response again without sending request (y/N/c): ').strip().upper()
