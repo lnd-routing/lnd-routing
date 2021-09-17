@@ -177,6 +177,12 @@ if lncli_exists:
 	print('')
 
 	if do_it == 'Y':
-		os.system('lncli connect ' + OUR_NODE + '@' + OUR_ADDR)
-		os.system(lncli1 + lncli2 + lncli3)
+		for i in range(4):
+			connected = os.popen('lncli connect ' + OUR_NODE + '@' + OUR_ADDR).read().strip()
+			if 'already connected' in connected:
+				os.system(lncli1 + lncli2 + lncli3)
+				break
+		else:
+			input('Could not connect to our node. Our node can attempt connecting to yours, but it must appear in the graph for channel opening and refunds to succeed. Press enter to continue or Ctrl+C to abort.')
+			os.system(lncli1 + lncli2 + lncli3)
 
