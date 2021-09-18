@@ -42,6 +42,14 @@ lncli sendpayment --keysend  --amt <(desired_channel_value * 0.0025) + 500> \
 --data 1667785070=01,34349339=<your_node_pubkey>
 ```
 
+**Please make sure you edit the examples before using.** We are still getting invalid requests. From our logs:
+```
+Received channel open request to 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021, received: 250500sat
+Attempting to connect to peer: 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021
+Error getting node info: 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021
+Error sending refund to 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021 of 250500sat: no_route
+``` 
+
 ### Examples:
 To request a 0.1btc public channel from us to node 0102030405060708090a0b0c0d0e0f101112131415161718191a1b1c1d1e1f2021:
 ```
