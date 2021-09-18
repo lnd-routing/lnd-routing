@@ -11,7 +11,7 @@ CHAN_MIN_VALUE = 100000
 CHAN_MAX_VALUE = 150000000
 CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
-OUR_ADDR = 'hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735'
+OUR_ADDR = 'lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735'
 
 
 print('Hello! Welcome to LND ⚡ Routing!')

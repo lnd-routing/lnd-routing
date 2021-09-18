@@ -24,11 +24,11 @@ Automatic refunds for failed channel openings are issued via keysend to the spec
 Our node will attempt to look up and connect to yours, but for best results, connect to us as a peer prior to 
 requesting a channel.
 
-`lncli connect 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735`
+`lncli connect 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735`
 
-`lightning-cli connect 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735`
+`lightning-cli connect 02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735`
 
-`eclair-cli connect --uri=02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@hgjdgzq7h6e32anpkiveobx4coihxg4buzcevsxqr6lcj35stzszicad.onion:9735`
+`eclair-cli connect --uri=02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735`
 
 We currently only have instructions for paying for channel requests from LND, but the destination node can be running any implementation.
 
