@@ -4,9 +4,22 @@ High capacity, high availability, well connected, fast lightning node.
 
 We aim to become a top liquidity provider for the lightning network.
 
+- Actively managed liquidity, virtually guaranteeing successful payments up to your channel size.
+- Large channels to popular destinations and major routing nodes.
+- Open channels to any node, for a friend, or to your favorite service provider.
+- Private LN-only interface via Tor, minimizing our attack surface and maintaining uptime.
+- Fast clustered servers for reliability.
+- Up to 1.5BTC channels, minimum 100k sats. Larger available on request with proven routing history.
+- Competitive pricing and fees.
+
 ## Quick and easy
 
 Use `request_channel.py` to request an incoming channel.
+
+```
+wget https://raw.githubusercontent.com/lnd-routing/lnd-routing/master/request_channel.py
+python3 request_channel.py
+```
 
 ## Channel open requests
 
