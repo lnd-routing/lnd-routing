@@ -76,13 +76,13 @@ if lncli_exists:
 			print('')
 		else:
 			print('')
-			print('Did not get parameter response before timeout. Your node must be routable and appear in the graph in order to receive the response. (At least 1 public channel over a day old.) Channel opening will still function, but you must connect to us as a peer first.')
-			print('Continuing without update, cancel and restart if you would like to wait longer.')
+			print('Did not get parameter response before timeout. Your node must accept keysends, be routable, and appear in the graph in order to receive the response. (At least 1 public channel over a day old.) Channel opening will still function, but you must connect to us as a peer first.')
+			print('Continuing without update. Press CTRL+C to cancel and restart if you would like to wait longer.')
 			print('')
 
 
 while True:
-	node_pubkey = input('Enter your node\'s public key (' + local_pubkey + '): ').strip()
+	node_pubkey = input('Enter the target node\'s public key or press ENTER for default (' + local_pubkey + '): ').strip()
 	if node_pubkey == '' and len(local_pubkey) == 66:
 		node_pubkey = local_pubkey
 		break
@@ -184,6 +184,6 @@ if lncli_exists:
 				os.system(lncli1 + lncli2 + lncli3)
 				break
 		else:
-			input('Could not connect to our node. Our node can attempt connecting to yours, but it must appear in the graph for channel opening and refunds to succeed. Press enter to continue or Ctrl+C to abort.')
+			input('Could not connect to our node. Our node can attempt connecting to yours, but it must appear in the graph for channel opening and refunds to succeed. Press ENTER to continue or CTRL+C to abort.')
 			os.system(lncli1 + lncli2 + lncli3)
 

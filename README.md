@@ -29,6 +29,8 @@ To request a channel opening, send us a keysend of `(desired_channel_value * 0.0
 
 - Minimum channel size is 100,000 sats. 
 - Maxmimum channel size is 1.5 btc.
+- Channels remain open as long as they are active. 
+- Minimum 1 month of inactivity before closing, only if liquidity is needed elsewhere.
 
 Automatic refunds for failed channel openings are issued via keysend to the specified node. 
 
