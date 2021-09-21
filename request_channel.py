@@ -179,7 +179,7 @@ if lncli_exists:
 
 	if do_it == 'Y':
 		for i in range(4):
-			connected = os.popen('lncli connect ' + OUR_NODE + '@' + OUR_ADDR).read().strip()
+			connected = os.popen('lncli connect ' + OUR_NODE + '@' + OUR_ADDR + ' 2>&1').read().strip()
 			if 'already connected' in connected:
 				os.system(lncli1 + lncli2 + lncli3)
 				break
