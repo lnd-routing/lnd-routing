@@ -45,6 +45,8 @@ requesting a channel.
 
 `eclair-cli connect --uri=02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735`
 
+A clearnet proxy is now avaliable using `02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9@139.59.142.221:9735`
+
 We currently only have instructions for paying for channel requests from LND, but the destination node can be running any implementation.
 
 ### Template:

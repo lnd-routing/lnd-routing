@@ -12,7 +12,7 @@ CHAN_MAX_VALUE = 150000000
 CHAN_OPEN_FEE = 500
 OUR_NODE = '02ab583d430015f3b6b41730434b5fac264901b50199f0b9becc0a98a365f581a9'
 OUR_ADDR = 'lndroutekytme3xds6cmbxaniretdgox2hk4cpu4k27jnub3gkfeuhqd.onion:9735'
-
+CL_PROXY = '139.59.142.221:9735'
 
 print('Hello! Welcome to LND ⚡ Routing!')
 print('This script will help you request an incoming channel from us.')
@@ -178,12 +178,20 @@ if lncli_exists:
 	print('')
 
 	if do_it == 'Y':
-		for i in range(4):
+		print('Connecting to our node at ' + OUR_ADDR + '...')
+		for i in range(3):
 			connected = os.popen('lncli connect ' + OUR_NODE + '@' + OUR_ADDR + ' 2>&1').read().strip()
 			if 'already connected' in connected:
 				os.system(lncli1 + lncli2 + lncli3)
 				break
 		else:
-			input('Could not connect to our node. Our node can attempt connecting to yours, but it must appear in the graph for channel opening and refunds to succeed. Press ENTER to continue or CTRL+C to abort.')
-			os.system(lncli1 + lncli2 + lncli3)
+			print('Could not connect to onion address. Trying clearnet proxy at ' + CL_PROXY + '...')
+			for i in range(3):
+				connected = os.popen('lncli connect ' + OUR_NODE + '@' + CL_PROXY + ' 2>&1').read().strip()
+				if 'already connected' in connected:
+					os.system(lncli1 + lncli2 + lncli3)
+					break
+			else:
+				input('Could not connect to our node. Our node can attempt connecting to yours, but it must appear in the graph for channel opening and refunds to succeed. Press ENTER to continue or CTRL+C to abort.')
+				os.system(lncli1 + lncli2 + lncli3)
 
