@@ -146,10 +146,10 @@ if send_msg == 'Y':
 fee_prop = int(chan_val / CHAN_RATE)
 fee = fee_prop + CHAN_OPEN_FEE
 
-if pub_chan == 'Y':
-	request_code = '01'
-else:
+if pub_chan == 'N':
 	request_code = '02'
+else:
+	request_code = '01'
 
 lncli1 = 'lncli sendpayment --keysend --amt ' + str(fee) + ' '
 lncli2 = '    --dest ' + OUR_NODE + ' '
